@@ -14,8 +14,13 @@ use Illuminate\Http\Request;
 */
 $api = app('Dingo\Api\Routing\Router');
 
-$api->version('v1', ['middleware' => 'auth:api'], function ($api) {
-    $api->get('/user', function (Request $request) {
+$api->version('v1', function ($api) {
+    $api->post('register', 'App\Http\Controllers\Auth\RegisterController@register');
+    $api->post('login', 'App\Http\Controllers\Auth\LoginController@login');
+    $api->post('logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout');
+    // $api->post('password/reset', 'App\Http\Controllers\Auth\ResetPasswordController@reset')->name('password.update');
+
+    $api->get('user', function (Request $request) {
         return $request->user();
     });    
 });
