@@ -74,7 +74,7 @@ class LoginController extends Controller
             $this->credentials($request), true
         );
     }
-
+    
     /**
      * Get the needed authorization credentials from the request.
      *
@@ -138,7 +138,7 @@ class LoginController extends Controller
      */
     public function username()
     {
-        return 'email';
+        return 'username';
     }
 
     /**

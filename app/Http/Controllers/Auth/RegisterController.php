@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Certificate;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -31,8 +33,8 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'type' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255', 'unique:certificates'],
             'password' => ['required', 'string', 'min:6'],
         ]);
     }
@@ -45,9 +47,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
+        $user = User::create([
+            'name' => Str::random(8)
+        ]);
+        return Certificate::create([
+            'user_id' => $user->id,
+            'type' => $data['type'],
+            'username' => $data['username'],
             'password' => Hash::make($data['password']),
         ]);
     }
