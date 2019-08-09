@@ -15,4 +15,14 @@ class User extends Model
     protected $fillable = [
         'name',
     ];
+
+    /**
+     * The certificates of user
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\hasManay
+     */
+    public function certificates()
+    {
+        return $this->hasManay(Certificate::class);
+    }
 }

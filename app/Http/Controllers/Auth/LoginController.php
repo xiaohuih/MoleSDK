@@ -13,6 +13,26 @@ class LoginController extends Controller
     use ThrottlesLogins;
    
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['login']]);
+    }
+    
+    /**
+     * Get the guard to be used during authentication.
+     *
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     */
+    protected function guard()
+    {
+        return Auth::guard('api');
+    }
+
+    /**
      * Handle a login request to the application.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -74,7 +94,7 @@ class LoginController extends Controller
             $this->credentials($request), true
         );
     }
-    
+
     /**
      * Get the needed authorization credentials from the request.
      *
@@ -163,15 +183,5 @@ class LoginController extends Controller
     protected function loggedOut(Request $request)
     {
         //
-    }
-
-    /**
-     * Get the guard to be used during authentication.
-     *
-     * @return \Illuminate\Contracts\Auth\StatefulGuard
-     */
-    protected function guard()
-    {
-        return Auth::guard('api');
     }
 }

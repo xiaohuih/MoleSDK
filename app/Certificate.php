@@ -15,13 +15,33 @@ class Certificate extends Authenticatable implements JWTSubject
     protected $fillable = [
         'user_id', 'type', 'username', 'password'
     ];
+
     /**
-     * Build relation to user
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password',
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'verified_at' => 'datetime',
+    ];
+    
+    /**
+     * The owner user of certificate
+     * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class);
     }
 
     /**

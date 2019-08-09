@@ -22,5 +22,8 @@ $api->version('v1', function ($api) {
 
     $api->get('user', function (Request $request) {
         return $request->user();
-    });    
+    });
+    
+    $api->post('order/create', 'App\Http\Controllers\OrderController@create');
+    $api->post('order/pay', 'App\Http\Controllers\OrderController@pay');
 });

@@ -25,6 +25,16 @@ class RegisterController extends Controller
     }
 
     /**
+     * Get the guard to be used during registration.
+     *
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     */
+    protected function guard()
+    {
+        return Auth::guard('api');
+    }
+
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
@@ -73,16 +83,6 @@ class RegisterController extends Controller
         $token = $this->guard()->login($user);
 
         return $this->registered($request, $token);
-    }
-
-    /**
-     * Get the guard to be used during registration.
-     *
-     * @return \Illuminate\Contracts\Auth\StatefulGuard
-     */
-    protected function guard()
-    {
-        return Auth::guard('api');
     }
 
     /**
