@@ -162,7 +162,7 @@ class OrderController extends Controller
             'amount' => $order->amount
         ]);
     }
-    
+
     /**
      * Get the failed create response instance.
      *
@@ -203,6 +203,7 @@ class OrderController extends Controller
             'message' => trans('success')
         ], 200);
     }
+    
     /**
      * Get the failed pay response instance.
      *

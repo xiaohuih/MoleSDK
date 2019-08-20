@@ -15,7 +15,7 @@ class OrderController extends AdminController
      *
      * @var string
      */
-    protected $title = 'App\Model\Order';
+    protected $title = 'Order';
 
     /**
      * Make a grid builder.
@@ -34,8 +34,9 @@ class OrderController extends AdminController
         $grid->column('user_id', __('User id'));
         $grid->column('product_id', __('Product id'));
         $grid->column('product_name', __('Product name'));
-        $grid->column('extra1', __('Extra1'));
-        $grid->column('extra2', __('Extra2'));
+        $grid->column('cp_order_id', __('Cp order id'));
+        $grid->column('callback_url', __('Callback url'));
+        $grid->column('callback_info', __('Callback info'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 
@@ -60,8 +61,9 @@ class OrderController extends AdminController
         $show->field('user_id', __('User id'));
         $show->field('product_id', __('Product id'));
         $show->field('product_name', __('Product name'));
-        $show->field('extra1', __('Extra1'));
-        $show->field('extra2', __('Extra2'));
+        $show->field('cp_order_id', __('Cp order id'));
+        $show->field('callback_url', __('Callback url'));
+        $show->field('callback_info', __('Callback info'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
 
@@ -84,8 +86,9 @@ class OrderController extends AdminController
         $form->number('user_id', __('User id'));
         $form->text('product_id', __('Product id'));
         $form->text('product_name', __('Product name'));
-        $form->text('extra1', __('Extra1'));
-        $form->text('extra2', __('Extra2'));
+        $form->text('cp_order_id', __('Cp order id'));
+        $form->text('callback_url', __('Callback url'));
+        $form->text('callback_info', __('Callback info'));
 
         return $form;
     }
