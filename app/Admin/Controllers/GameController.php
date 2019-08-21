@@ -53,7 +53,9 @@ class GameController extends AdminController
         $show->field('name', __('Name'));
         $show->field('key', __('Key'));
         $show->field('secret', __('Secret'));
-        $show->field('pub_key', __('Pub key'));
+        $show->field('pub_key', __('Pub key'))->unescape()->as(function ($value) {
+            return "<span style='word-wrap: break-word;'>$value</span>";
+        });
         $show->field('pay_callback', __('Pay callback'));
         $show->field('pay_callback_debug', __('Pay callback debug'));
         $show->field('created_at', __('Created at'));
@@ -87,7 +89,7 @@ class GameController extends AdminController
     {
         $pem = OpenSSL::newKey();
         return [
-            'key'           => Str::random(8),
+            'key'           => Str::random(16),
             'secret'        => Str::random(32),
             'pub_key'       => OpenSSL::getPublicKey($pem),
             'pri_key'       => OpenSSL::getPrivateKey($pem)

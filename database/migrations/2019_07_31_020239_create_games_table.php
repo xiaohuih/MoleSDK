@@ -18,8 +18,8 @@ class CreateGamesTable extends Migration
             $table->string('name');
             $table->string('key');
             $table->string('secret');
-            $table->string('pub_key', 1024);
-            $table->string('pri_key', 2048);
+            $table->string('pub_key', 512);
+            $table->string('pri_key', 1024);
             $table->string('pay_callback')->nullable();
             $table->string('pay_callback_debug')->nullable();
             $table->timestamps();
