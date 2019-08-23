@@ -70,8 +70,9 @@ return [
             'model' => App\User::class,
         ],
         'certificates' => [
-            'driver' => 'eloquent',
-            'model' => App\Certificate::class,
+            'driver' => 'certificate',
+            'model' => App\User::class,
+            'certificate' => App\Certificate::class
         ],
 
         // 'users' => [

@@ -38,7 +38,7 @@ class GameController extends Controller
     {
         $request->validate([
             'app_id' => 'required|string|max:255',
-            'sign' => 'required|string|max:255'
+            'signature' => 'required|string|max:255'
         ]);
     }
     /**
@@ -49,26 +49,23 @@ class GameController extends Controller
      */
     protected function attemptInitialize(Request $request)
     {
-        $game = Game::findOrFail($request->get("app_id"));
-
-        return hash('sha256', $app_id.$game->app_key) == $request->get("sign");
+        $game = Game::findOrFail($request->input("app_id"));
+        return true;
     }
 
     /**
      * Send the response after the order was initialized.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Model\Order  $order
      * 
      * @return \Illuminate\Http\Response
      */
-    protected function sendInitializeResponse(Request $request, $order)
+    protected function sendInitializeResponse(Request $request)
     {
         return response()->json([
-            'order_id' => $order->id,
-            'currency' => $order->currency,
-            'amount' => $order->amount
-        ]);
+            'message' => trans('success'),
+            'status_code' => 200
+        ], 200);
     }
 
     /**

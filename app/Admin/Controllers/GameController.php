@@ -30,6 +30,7 @@ class GameController extends AdminController
 
         $grid->column('id', __('Id'));
         $grid->column('name', __('Name'));
+        $grid->column('version', __('Version'));
         $grid->column('key', __('Key'));
         $grid->column('pay_callback', __('Pay callback'));
         $grid->column('pay_callback_debug', __('Pay callback debug'));
@@ -51,6 +52,7 @@ class GameController extends AdminController
 
         $show->field('id', __('Id'));
         $show->field('name', __('Name'));
+        $show->field('version', __('Version'));
         $show->field('key', __('Key'));
         $show->field('secret', __('Secret'));
         $show->field('pub_key', __('Pub key'))->unescape()->as(function ($value) {
@@ -74,6 +76,7 @@ class GameController extends AdminController
         $form = new Form(new Game(self::data()));
 
         $form->text('name', __('Name'));
+        $form->text('version', __('Version'));
         $form->text('pay_callback', __('Pay callback'));
         $form->text('pay_callback_debug', __('Pay callback debug'));
 

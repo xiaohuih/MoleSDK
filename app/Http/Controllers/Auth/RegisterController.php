@@ -7,13 +7,26 @@ use App\Certificate;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
+    /*
+    |--------------------------------------------------------------------------
+    | Register Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles the registration of new users as well as their
+    | validation and creation. By default this controller uses a trait to
+    | provide this functionality without requiring any additional code.
+    |
+    */
+
+    use RegistersUsers;
+
     /**
      * Create a new controller instance.
      *
@@ -58,33 +71,18 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $user = User::create([
-            'name' => Str::random(8)
+            'openid' => Str::uuid(),
+            'name' => uniqid('mg')
         ]);
-        return Certificate::create([
+        Certificate::create([
             'user_id' => $user->id,
             'type' => $data['type'],
-            'username' => $data['username'],
-            'password' => Hash::make($data['password']),
+            'username' => $data['username']
         ]);
+
+        return $user;
     }
     
-    /**
-     * Handle a registration request for the application.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function register(Request $request)
-    {
-        $this->validator($request->all())->validate();
-
-        event(new Registered($user = $this->create($request->all())));
-
-        $token = $this->guard()->login($user);
-
-        return $this->registered($request, $token);
-    }
-
     /**
      * The user has been registered.
      *
@@ -92,10 +90,10 @@ class RegisterController extends Controller
      * @param  string  $token
      * @return mixed
      */
-    protected function registered(Request $request, $token)
+    protected function registered(Request $request)
     {
         return response()->json([
-            'access_token' => $token,
+            'access_token' => (string)auth('api')->getToken(),
             'token_type' => 'bearer',
             'expires_in' => auth('api')->factory()->getTTL() * 60
         ]);

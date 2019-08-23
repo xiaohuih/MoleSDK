@@ -16,6 +16,7 @@ class CreateGamesTable extends Migration
         Schema::create('games', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->integer('version');
             $table->string('key');
             $table->string('secret');
             $table->string('pub_key', 512);

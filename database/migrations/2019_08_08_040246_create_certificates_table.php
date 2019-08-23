@@ -18,7 +18,6 @@ class CreateCertificatesTable extends Migration
             $table->bigInteger('user_id')->foreign();
             $table->string('type');
             $table->string('username')->unique();
-            $table->string('password');
             $table->timestamp('verified_at')->nullable();
             $table->timestamps();
         });
