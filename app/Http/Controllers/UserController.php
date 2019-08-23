@@ -51,7 +51,7 @@ class UserController extends Controller
         ]);
         $app = Game::findOrFail($request->input('app_id'));
         // Set encryption key
-        $this->key = $app->key;
+        $this->key = $app->secret;
 
         if (!$this->hasValidSignature($request))
             throw new InvalidSignatureException;
