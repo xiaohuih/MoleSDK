@@ -112,7 +112,7 @@ class OrderController extends Controller
      */
     protected function attemptCreate(Request $request)
     {
-        $user = $this->guard()->userOrFail()->user;
+        $user = $request->user();
 
         $data = $request->all();
         $order = Order::create([

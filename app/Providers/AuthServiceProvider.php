@@ -29,6 +29,6 @@ class AuthServiceProvider extends ServiceProvider
         // Self defined UserProvider
         Auth::provider('certificate', function ($app, array $config) {
             return new CertificateUserProvider(new BcryptHasher(), config('auth.providers.certificates.model'), config('auth.providers.certificates.certificate'));
-    });
+        });
     }
 }

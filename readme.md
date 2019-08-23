@@ -15,6 +15,7 @@ This package provides tools for the following, and more:
 - [Composer](https://getcomposer.org/)
 
 ## Installation
+php artisan db:seed --class=AdminTablesSeeder
 
 ## License
 

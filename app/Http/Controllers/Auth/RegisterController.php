@@ -58,7 +58,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'type' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255', 'unique:certificates'],
-            'password' => ['required', 'string', 'min:6'],
+            'password' => ['string', 'min:6', 'required_if:type,email,username'],
         ]);
     }
 
@@ -72,7 +72,8 @@ class RegisterController extends Controller
     {
         $user = User::create([
             'openid' => Str::uuid(),
-            'name' => uniqid('mg')
+            'name' => uniqid('mg'),
+            'password' => isset($data['password']) ? bcrypt($data['password']) : null
         ]);
         Certificate::create([
             'user_id' => $user->id,

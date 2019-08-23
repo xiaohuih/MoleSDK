@@ -32,7 +32,7 @@ $api->version('v1', function ($api) {
             return $request->user();
         });
         $api->get('user', function (Request $request) {
-            return $request->user()->user();
+            return $request->user();
         });
     });
     // Api for others
