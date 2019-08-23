@@ -2,10 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Game;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Exceptions\InvalidSignatureException;
 
 class UserController extends Controller
 {
+    /**
+     * The encryption key.
+     *
+     * @var callable
+     */
+    protected $key;
+
     /**
      * Create a new controller instance.
      *
@@ -40,15 +49,14 @@ class UserController extends Controller
             'app_id' => 'required|string|max:255',
             'signature' => 'required|string|max:255'
         ]);
+        $app = Game::findOrFail($request->input('app_id'));
+        // Set encryption key
+        $this->key = $app->key;
+
         if (!$this->hasValidSignature($request))
             throw new InvalidSignatureException;
-        
-        Game::findOrFail($request->input('app_id'));
-
-        $user = $this->guard()->userOrFail()->user;
-        
         return response()->json([
-            'openid' => $user->openid
+            'openid' => $request->user()->openid
         ], 200);
     }
 

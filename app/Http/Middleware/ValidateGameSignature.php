@@ -42,9 +42,7 @@ class ValidateGameSignature
      */
     protected function hasValidAppId(Request $request)
     {
-        $app_id = $request->get('app_id');
-        
-        $app = Game::findOrFail($app_id);
+        $app = Game::findOrFail($request->input('app_id'));
         // Set encryption key
         $this->key = $app->key;
         

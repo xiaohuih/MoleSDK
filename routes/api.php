@@ -28,9 +28,7 @@ $api->version('v1', function ($api) {
     });
     // Api for server
     $api->group([], function ($api) {
-        $api->post('user/verify', function (Request $request) {
-            return $request->user();
-        });
+        $api->post('user/verify', 'App\Http\Controllers\UserController@verify');
         $api->get('user', function (Request $request) {
             return $request->user();
         });
